@@ -8,72 +8,72 @@ app.use(cors());
 app.use(express.json());
 
 const usersArrays = [
-    {
-        username: "bobesponja1",
-        avatar: "11111111111111"
-    },
-    {
-        username: "bobesponja2",
-        avatar: "2222222222222"
-    },
-    {
-        username: "bobesponja3",
-        avatar: "3333333333333333"
-    }
+    // {
+    //     username: "bobesponja1",
+    //     avatar: "11111111111111"
+    // },
+    // {
+    //     username: "bobesponja2",
+    //     avatar: "2222222222222"
+    // },
+    // {
+    //     username: "bobesponja3",
+    //     avatar: "3333333333333333"
+    // }
 ];
 const tweetsArrays = [
-    {
-        username: "bobesponja1",
-        tweet: "11"
-    },
-    {
-        username: "bobesponja3",
-        tweet: "22"
-    },
-    {
-        username: "bobesponja2",
-        tweet: "33"
-    },
-    {
-        username: "bobesponja1",
-        tweet: "44"
-    },
-    {
-        username: "bobesponja3",
-        tweet: "55"
-    },
-    {
-        username: "bobesponja2",
-        tweet: "66"
-    },
-    {
-        username: "bobesponja1",
-        tweet: "77"
-    },
-    {
-        username: "bobesponja3",
-        tweet: "88"
-    },
-    {
-        username: "bobesponja2",
-        tweet: "99"
-    },
-    {
-        username: "bobesponja1",
-        tweet: "1010"
-    },
-    {
-        username: "bobesponja3",
-        tweet: "1111"
-    },
-    {
-        username: "bobesponja2",
-        tweet: "1212"
-    },
-    {
-        username: "bobesponja1",
-        tweet: "1313"
-    }
+    // {
+    //     username: "bobesponja1",
+    //     tweet: "11"
+    // },
+    // {
+    //     username: "bobesponja3",
+    //     tweet: "22"
+    // },
+    // {
+    //     username: "bobesponja2",
+    //     tweet: "33"
+    // },
+    // {
+    //     username: "bobesponja1",
+    //     tweet: "44"
+    // },
+    // {
+    //     username: "bobesponja3",
+    //     tweet: "55"
+    // },
+    // {
+    //     username: "bobesponja2",
+    //     tweet: "66"
+    // },
+    // {
+    //     username: "bobesponja1",
+    //     tweet: "77"
+    // },
+    // {
+    //     username: "bobesponja3",
+    //     tweet: "88"
+    // },
+    // {
+    //     username: "bobesponja2",
+    //     tweet: "99"
+    // },
+    // {
+    //     username: "bobesponja1",
+    //     tweet: "1010"
+    // },
+    // {
+    //     username: "bobesponja3",
+    //     tweet: "1111"
+    // },
+    // {
+    //     username: "bobesponja2",
+    //     tweet: "1212"
+    // },
+    // {
+    //     username: "bobesponja1",
+    //     tweet: "1313"
+    // }
 ];
 
 app.post("/sign-up", (req, res) => {
@@ -137,6 +137,7 @@ app.get("/tweets", (req, res) => {
         else if (3 === Number(page)){
             return (index >= tweetsArrays.length - 3*10) && (index < tweetsArrays.length - 2*10);
         }
+        return index >= tweetsArrays.length - 10;
     }).reverse();
 
     const lastTenTweetsWithAvatar = lastTenTweets.map(ltt => {

@@ -79,6 +79,10 @@ const tweetsArrays = [
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
 
+    if(!username || !avatar || (typeof username !== "string") || (typeof avatar !== "string")){
+        return res.status(400).send("Todos os campos são obrigatórios!")
+    }
+
     const newUser = {
         username,
         avatar
@@ -86,16 +90,20 @@ app.post("/sign-up", (req, res) => {
     usersArrays.push(newUser);
     // console.log(newUser);
 
-    res.send("New user add")
+    res.status(201).send("OK")
 });
 
 app.post("/tweets", (req, res) => {
     const { username, tweet } = req.body;
 
+    if(!username || !tweet || (typeof username !== "string") || (typeof tweet !== "string")){
+        return res.status(400).send("Todos os campos são obrigatórios!")
+    }
+
     const userExists = usersArrays.find(u => u.username === username);
 
     if (!userExists) {
-        return res.send("UNAUTHORIZED");
+        return res.status(401).send("UNAUTHORIZED");
     }
 
     const newTweet = {
@@ -105,7 +113,7 @@ app.post("/tweets", (req, res) => {
     tweetsArrays.push(newTweet);
     // console.log(tweetsArrays);
 
-    res.send("Ok");
+    res.status(201).send("OK")
 });
 
 app.get("/tweets", (req, res) => {

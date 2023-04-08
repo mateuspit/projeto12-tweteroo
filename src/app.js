@@ -10,15 +10,15 @@ app.use(express.json());
 const usersArrays = [
     {
         username: "bobesponja1",
-            avatar: "11111111111111"
+        avatar: "11111111111111"
     },
     {
         username: "bobesponja2",
-            avatar: "2222222222222"
+        avatar: "2222222222222"
     },
     {
         username: "bobesponja3",
-            avatar: "3333333333333333"
+        avatar: "3333333333333333"
     }
 ];
 const tweetsArrays = [
@@ -79,7 +79,7 @@ const tweetsArrays = [
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
 
-    if(!username || !avatar || (typeof username !== "string") || (typeof avatar !== "string")){
+    if (!username || !avatar || (typeof username !== "string") || (typeof avatar !== "string")) {
         return res.status(400).send("Todos os campos são obrigatórios!")
     }
 
@@ -96,7 +96,7 @@ app.post("/sign-up", (req, res) => {
 app.post("/tweets", (req, res) => {
     const { username, tweet } = req.body;
 
-    if(!username || !tweet || (typeof username !== "string") || (typeof tweet !== "string")){
+    if (!username || !tweet || (typeof username !== "string") || (typeof tweet !== "string")) {
         return res.status(400).send("Todos os campos são obrigatórios!")
     }
 
@@ -117,32 +117,40 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
+    const page = req.query.page;
 
-    if(!tweetsArrays){
+    if(page < 1){
+        return res.status(400).send("Informe uma página válida!");
+    }
+
+    if (!tweetsArrays) {
         return res.send("");
     }
     const lastTenTweets = tweetsArrays.filter((tweet, index) => {
-        return index >= tweetsArrays.length - 10;
+        if (1 === Number(page)) {
+            return index >= tweetsArrays.length - 10;
+        }
+        else if (2 === Number(page)){
+            return (index >= tweetsArrays.length - 2*10) && (index < tweetsArrays.length - 1*10);
+        }
+        else if (3 === Number(page)){
+            return (index >= tweetsArrays.length - 3*10) && (index < tweetsArrays.length - 2*10);
+        }
     }).reverse();
-    // console.log(lastTenTweets);
-    // const lastTenTweetsWithAvatar = lastTenTweets.map(llt => {
-    //     const avatar = usersArrays.filter(llt.username) 
-    //     return {llt.}
-    // });
 
     const lastTenTweetsWithAvatar = lastTenTweets.map(ltt => {
         const avatar = usersArrays.find(ua => ua.username === ltt.username);
-        return {username: ltt.username, avatar: avatar.avatar, tweet: ltt.tweet};
+        return { username: ltt.username, avatar: avatar.avatar, tweet: ltt.tweet };
     });
 
     res.send(lastTenTweetsWithAvatar);
 });
 
-app.get("/tweets/:USERNAME",(req, res)=>{
+app.get("/tweets/:USERNAME", (req, res) => {
     const userSearch = req.params.USERNAME;
 
     const allUserSearchTweets = tweetsArrays.filter(ta => ta.username === userSearch);
-    
+
     res.send(allUserSearchTweets);
 
 

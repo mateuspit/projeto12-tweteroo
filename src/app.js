@@ -138,6 +138,16 @@ app.get("/tweets", (req, res) => {
     res.send(lastTenTweetsWithAvatar);
 });
 
+app.get("/tweets/:USERNAME",(req, res)=>{
+    const userSearch = req.params.USERNAME;
+
+    const allUserSearchTweets = tweetsArrays.filter(ta => ta.username === userSearch);
+    
+    res.send(allUserSearchTweets);
+
+
+});
+
 
 
 app.listen(port, () => console.log(`Runing in port ${port}`))

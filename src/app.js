@@ -75,6 +75,7 @@ const tweetsArrays = [
     //     tweet: "1313"
     // }
 ];
+const tweetsArraysUsername = [];
 
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
@@ -111,7 +112,12 @@ app.post("/tweets", (req, res) => {
         user,
         tweet
     };
+    const newTweetUsername = {
+        username: user,
+        tweet
+    }
     tweetsArrays.push(newTweet);
+    tweetsArraysUsername.push(newTweetUsername);
     // console.log("tweetsArrays",tweetsArrays);
 
     res.status(201).send("OK")
@@ -154,7 +160,7 @@ app.get("/tweets", (req, res) => {
 app.get("/tweets/:USERNAME", (req, res) => {
     const userSearch = req.params.USERNAME;
 
-    const allUserSearchTweets = tweetsArrays.filter(ta => ta.user === userSearch);
+    const allUserSearchTweets = tweetsArraysUsername.filter(ta => ta.username === userSearch);
 
     res.send(allUserSearchTweets);
 

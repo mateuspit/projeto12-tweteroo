@@ -112,7 +112,7 @@ app.post("/tweets", (req, res) => {
         tweet
     };
     tweetsArrays.push(newTweet);
-    // console.log(tweetsArrays);
+    console.log("tweetsArrays",tweetsArrays);
 
     res.status(201).send("OK")
 });
@@ -133,16 +133,19 @@ app.get("/tweets", (req, res) => {
         }
         else if (2 === Number(page)){
             return (index >= tweetsArrays.length - 2*10) && (index < tweetsArrays.length - 1*10);
-        }
+        } 
         else if (3 === Number(page)){
             return (index >= tweetsArrays.length - 3*10) && (index < tweetsArrays.length - 2*10);
         }
+        // console.log("tweetsArrays.length",tweetsArrays.length);
         return index >= tweetsArrays.length - 10;
     }).reverse();
 
+
     const lastTenTweetsWithAvatar = lastTenTweets.map(ltt => {
-        const avatar = usersArrays.find(ua => ua.username === ltt.username);
-        return { username: ltt.username, avatar: avatar.avatar, tweet: ltt.tweet };
+        // console.log(ltt.user);
+        const avatar = usersArrays.find(ua => ua.username === ltt.user);
+        return { username: ltt.user, avatar: avatar.avatar, tweet: ltt.tweet };
     });
 
     res.send(lastTenTweetsWithAvatar);

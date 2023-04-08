@@ -112,7 +112,7 @@ app.post("/tweets", (req, res) => {
         tweet
     };
     tweetsArrays.push(newTweet);
-    console.log("tweetsArrays",tweetsArrays);
+    // console.log("tweetsArrays",tweetsArrays);
 
     res.status(201).send("OK")
 });
@@ -154,7 +154,7 @@ app.get("/tweets", (req, res) => {
 app.get("/tweets/:USERNAME", (req, res) => {
     const userSearch = req.params.USERNAME;
 
-    const allUserSearchTweets = tweetsArrays.filter(ta => ta.username === userSearch);
+    const allUserSearchTweets = tweetsArrays.filter(ta => ta.user === userSearch);
 
     res.send(allUserSearchTweets);
 
